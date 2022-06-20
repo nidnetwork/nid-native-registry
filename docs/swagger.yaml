@@ -1,0 +1,32 @@
+basePath: /api/v1
+info:
+  contact:
+    email: support@nid.network
+    name: API Support
+    url: https://nid.network/support
+  description: NID Native Registry API.
+  termsOfService: https://nid.network/terms/
+  title: NID Native Registry API
+  version: "1.0"
+paths:
+  /:
+    get:
+      consumes:
+      - application/json
+      description: do ping
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: ping example
+      tags:
+      - example
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
