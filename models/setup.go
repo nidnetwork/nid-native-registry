@@ -27,6 +27,6 @@ func ConnectDatabase() {
 	}
 
 	db.Debug()
-	db.AutoMigrate(&Name{})
+	db.AutoMigrate(&Record{})
 	DB = db
 }
