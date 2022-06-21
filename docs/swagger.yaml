@@ -81,7 +81,7 @@ info:
   title: NID Native Registry API
   version: "1.0"
 paths:
-  /api/v1:
+  /:
     get:
       consumes:
       - application/json

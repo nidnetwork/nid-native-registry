@@ -14,7 +14,7 @@ import (
 // @Accept json
 // @Produce json
 // @Success 200 {string} Index
-// @Router /api/v1 [get]
+// @Router / [get]
 func Index(g *gin.Context) {
 	g.JSON(http.StatusOK, gin.H{"message": "hello"})
 }

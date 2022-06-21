@@ -13,7 +13,7 @@
     },
     "basePath": "/api/v1",
     "paths": {
-        "/api/v1": {
+        "/": {
             "get": {
                 "description": "do ping",
                 "consumes": [

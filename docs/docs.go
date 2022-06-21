@@ -21,7 +21,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/v1": {
+        "/": {
             "get": {
                 "description": "do ping",
                 "consumes": [
