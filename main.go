@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/NIDNetwork/nid-native-registry/controllers"
-	"github.com/NIDNetwork/nid-native-registry/models"
+	"github.com/nidnetwork/nid-native-registry/controllers"
+	"github.com/nidnetwork/nid-native-registry/models"
 )
 
 // @title NID Native Registry API
