@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	docs "github.com/NIDNetwork/nid-native-registry/docs"
+	docs "github.com/nidnetwork/nid-native-registry/docs"
 
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
