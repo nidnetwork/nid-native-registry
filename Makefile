@@ -1,6 +1,6 @@
 
 
-start:
+run:
 	air
 
 doc:
