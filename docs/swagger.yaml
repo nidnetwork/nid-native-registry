@@ -1,15 +1,87 @@
 basePath: /api/v1
+definitions:
+  models.CreateRecordInput:
+    properties:
+      assetURL:
+        type: string
+      issuedAt:
+        type: string
+      issuer:
+        type: string
+      name:
+        type: string
+      nid:
+        type: string
+      serialNo:
+        type: string
+      thumbnailURL:
+        type: string
+    required:
+    - name
+    - nid
+    type: object
+  models.Record:
+    properties:
+      accessToken:
+        type: string
+      assetURL:
+        type: string
+      createdAt:
+        type: string
+      id:
+        type: integer
+      issuedAt:
+        type: string
+      issuer:
+        type: string
+      name:
+        type: string
+      nid:
+        type: string
+      serialNo:
+        type: string
+      thumbnailURL:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.RecordOutput:
+    properties:
+      assetURL:
+        type: string
+      id:
+        type: integer
+      issuedAt:
+        type: string
+      issuer:
+        type: string
+      name:
+        type: string
+      nid:
+        type: string
+      serialNo:
+        type: string
+      thumbnailURL:
+        type: string
+    type: object
+  models.UpdateRecordInput:
+    properties:
+      nid:
+        type: string
+    required:
+    - nid
+    type: object
 info:
   contact:
     email: support@nid.network
     name: API Support
-    url: https://nid.network/support
-  description: NID Native Registry API.
+    url: https://nid.network/support/
+  description: NID NNS registry server.
   termsOfService: https://nid.network/terms/
   title: NID Native Registry API
   version: "1.0"
 paths:
-  /:
+  /api/v1:
     get:
       consumes:
       - application/json
@@ -21,9 +93,118 @@ paths:
           description: OK
           schema:
             type: string
-      summary: ping example
+      summary: index
       tags:
-      - example
+      - Index
+  /records:
+    get:
+      consumes:
+      - application/json
+      description: Find current account all records
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Record'
+            type: array
+      summary: Find all records
+      tags:
+      - Record
+    post:
+      consumes:
+      - application/json
+      description: Create new record
+      parameters:
+      - description: Create new record
+        in: body
+        name: record
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateRecordInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Record'
+      summary: Create new record
+      tags:
+      - Record
+  /records/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a record
+      parameters:
+      - description: Record ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/models.Record'
+      security:
+      - BearerAuth: []
+      summary: Delete a record
+      tags:
+      - Record
+    get:
+      consumes:
+      - application/json
+      description: Get a record
+      parameters:
+      - description: Record ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RecordOutput'
+      summary: Get a record
+      tags:
+      - Record
+    patch:
+      consumes:
+      - application/json
+      description: Update a record
+      parameters:
+      - description: Record ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update a record
+        in: body
+        name: record
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateRecordInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Record'
+      security:
+      - BearerAuth: []
+      summary: Update a record
+      tags:
+      - Record
 securityDefinitions:
   BearerAuth:
     in: header

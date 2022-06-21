@@ -13,5 +13,14 @@ func CreateRouter() *gin.Engine {
 	r.GET("/", Index)
 	r.GET("/api/v1", Index)
 
+	v1 := r.Group("/api/v1")
+	{
+		v1.GET("/records", FindRecords)
+		v1.GET("/records/:id", GetRecord)
+		v1.POST("/records", CreateRecord)
+		v1.PATCH("/records/:id", UpdateRecord)
+		v1.DELETE("/records/:id", DeleteRecord)
+	}
+
 	return r
 }
