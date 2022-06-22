@@ -1,0 +1,11 @@
+.git
+.gitignore
+.dockerignore
+AUTHORS.md
+CONTRIBUTING.md
+LICENSE
+Makefile
+NOTICE
+README.md
+tmp/
+data/
