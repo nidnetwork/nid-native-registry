@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"bytes"
+	"encoding/json"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -46,16 +48,31 @@ func CreateRecord(c *gin.Context) {
 		return
 	}
 
+	// Connect to IPFS
+	ipfs, err := helpers.IPFSConnect()
+	if err != nil {
+		helpers.NewServerError(c, err, "IPFSConnectError")
+		return
+	}
+
+	// Write metadata to IPFS
+	metadata, err := json.Marshal(input.Metadata)
+	if err != nil {
+		helpers.NewServerError(c, err, "RecordMetadataMarshalError")
+		return
+	}
+	cid, err := ipfs.Add(bytes.NewReader(metadata))
+	if err != nil {
+		helpers.NewServerError(c, err, "RecordMetadataIPFSAddError")
+		return
+	}
+
 	// Create record
 	record := models.Record{
-		NID:          input.NID,
-		Name:         input.Name,
-		Issuer:       input.Issuer,
-		IssuedAt:     input.IssuedAt,
-		SerialNo:     input.SerialNo,
-		ThumbnailURL: input.ThumbnailURL,
-		AssetURL:     input.AssetURL,
-		AccessToken:  utils.RandomString(30),
+		NID:         input.NID,
+		CID:         cid,
+		Metadata:    string(metadata),
+		AccessToken: utils.RandomString(30),
 	}
 
 	models.DB.Create(&record)
