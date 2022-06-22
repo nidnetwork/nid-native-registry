@@ -45,30 +45,6 @@ const docTemplate = `{
             }
         },
         "/records": {
-            "get": {
-                "description": "Find current account all records",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Record"
-                ],
-                "summary": "Find all records",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Record"
-                            }
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "Create new record",
                 "consumes": [
@@ -218,8 +194,45 @@ const docTemplate = `{
         "models.CreateRecordInput": {
             "type": "object",
             "required": [
-                "name",
+                "metadata",
                 "nid"
+            ],
+            "properties": {
+                "metadata": {
+                    "$ref": "#/definitions/models.RecordMetadata"
+                },
+                "nid": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Record": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string"
+                },
+                "cid": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nid": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.RecordMetadata": {
+            "type": "object",
+            "required": [
+                "name"
             ],
             "properties": {
                 "assetURL": {
@@ -234,51 +247,10 @@ const docTemplate = `{
                 "name": {
                     "type": "string"
                 },
-                "nid": {
-                    "type": "string"
-                },
                 "serialNo": {
                     "type": "string"
                 },
                 "thumbnailURL": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.Record": {
-            "type": "object",
-            "properties": {
-                "accessToken": {
-                    "type": "string"
-                },
-                "assetURL": {
-                    "type": "string"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "issuedAt": {
-                    "type": "string"
-                },
-                "issuer": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "nid": {
-                    "type": "string"
-                },
-                "serialNo": {
-                    "type": "string"
-                },
-                "thumbnailURL": {
-                    "type": "string"
-                },
-                "updatedAt": {
                     "type": "string"
                 }
             }
@@ -286,28 +258,13 @@ const docTemplate = `{
         "models.RecordOutput": {
             "type": "object",
             "properties": {
-                "assetURL": {
-                    "type": "string"
-                },
                 "id": {
                     "type": "integer"
                 },
-                "issuedAt": {
-                    "type": "string"
-                },
-                "issuer": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
+                "metadata": {
+                    "$ref": "#/definitions/models.RecordMetadata"
                 },
                 "nid": {
-                    "type": "string"
-                },
-                "serialNo": {
-                    "type": "string"
-                },
-                "thumbnailURL": {
                     "type": "string"
                 }
             }
