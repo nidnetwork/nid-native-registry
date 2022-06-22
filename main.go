@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/nidnetwork/nid-native-registry/controllers"
+	"github.com/nidnetwork/nid-native-registry/helpers"
 	"github.com/nidnetwork/nid-native-registry/models"
 )
 
@@ -24,7 +25,7 @@ import (
 
 func main() {
 	// Connect to database
-	models.ConnectDatabase()
+	models.ConnectDatabase(helpers.GetDSN())
 
 	r := controllers.CreateRouter()
 

@@ -1,8 +1,6 @@
 package models
 
 import (
-	"os"
-
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -12,13 +10,8 @@ import (
 var DB *gorm.DB
 
 // ConnectDatabase connect database
-func ConnectDatabase() {
-	dbPath := os.Getenv("DB_PATH")
-	if dbPath == "" {
-		dbPath = "./nid-native-registry.db"
-	}
-
-	db, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{
+func ConnectDatabase(dsn string) {
+	db, err := gorm.Open(sqlite.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Info),
 	})
 
