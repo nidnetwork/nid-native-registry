@@ -9,22 +9,6 @@ import (
 	"github.com/nidnetwork/nid-native-registry/utils"
 )
 
-// FindRecords godoc
-// @Summary Find all records
-// @Schemes
-// @Description Find current account all records
-// @Tags Record
-// @Accept json
-// @Produce json
-// @Success 200 {array} models.Record
-// @Router /records [get]
-func FindRecords(c *gin.Context) {
-	var records []models.Record
-	models.DB.Find(&records)
-
-	c.JSON(http.StatusOK, records)
-}
-
 // GetRecord godoc
 // @Summary Get a record
 // @Schemes
