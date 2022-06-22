@@ -9,7 +9,7 @@ func CreateRouter() *gin.Engine {
 	r := gin.Default()
 	r.SetTrustedProxies(nil)
 
-	r.GET("/swagger/*any", SwaggerDocs)
+	r.GET("/docs/*any", SwaggerDocs)
 	r.GET("/", Index)
 	r.GET("/api/v1", Index)
 
