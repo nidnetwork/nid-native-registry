@@ -9,12 +9,13 @@ import (
 	"testing"
 
 	"github.com/nidnetwork/nid-native-registry/controllers"
+	"github.com/nidnetwork/nid-native-registry/helpers"
 	"github.com/nidnetwork/nid-native-registry/models"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestRecord(t *testing.T) {
-	models.ConnectDatabase()
+	models.ConnectDatabase(helpers.GetDSN())
 	record := createRecordTest(t)
 	getRecordTest(t, record)
 	updateOutput := updateRecordTest(t, record)
@@ -26,8 +27,10 @@ func createRecordTest(t *testing.T) (record models.Record) {
 	w := httptest.NewRecorder()
 	nid := "did:nid:eip155_9:erc721_3:9"
 	body, _ := json.Marshal(models.CreateRecordInput{
-		NID:  nid,
-		Name: "My awesome NFT",
+		NID: nid,
+		Metadata: models.RecordMetadata{
+			Name: "My awesome NFT",
+		},
 	})
 	reader := strings.NewReader(string(body))
 	req, _ := http.NewRequest("POST", "/api/v1/records", reader)
