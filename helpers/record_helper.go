@@ -20,6 +20,18 @@ func GetRecordByID(c *gin.Context) (*models.Record, error) {
 	return &name, nil
 }
 
+// GetRecordByNNS that find name by NNS
+func GetRecordByNNS(c *gin.Context) (*models.Record, error) {
+	id := strings.Trim(c.Param("nns"), GetRegistarNNS())
+	var name models.Record
+	if err := models.DB.Where("id = ?", id).First(&name).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+		return nil, err
+	}
+
+	return &name, nil
+}
+
 // RecordAuth auth required
 func RecordAuth(c *gin.Context, name *models.Record) error {
 	token := c.GetHeader("Authorization")
