@@ -38,3 +38,13 @@ func GetDSN() string {
 
 	return dsn
 }
+
+// GetRegistarNNS -
+func GetRegistarNNS() string {
+	nns := os.Getenv("REGISTAR_NNS")
+	if nns == "" {
+		nns = ".nid.nns"
+	}
+
+	return nns
+}
