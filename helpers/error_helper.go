@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"github.com/nidnetwork/nid-native-registry/utils"
 )
 
 // ErrorLog -
@@ -72,6 +73,7 @@ func Descriptive(verr validator.ValidationErrors) []ValidationDetail {
 
 // NewValidationError -
 func NewValidationError(ctx *gin.Context, err error) {
+	utils.Debug(err)
 	status := http.StatusBadRequest
 	var verr validator.ValidationErrors
 	if errors.As(err, &verr) {
