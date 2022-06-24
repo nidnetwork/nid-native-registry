@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -39,19 +40,28 @@ type UpdateRecordInput struct {
 
 // RecordOutput struct
 type RecordOutput struct {
-	ID       uint           `json:"id"`
-	NID      string         `json:"nid"`
-	Metadata RecordMetadata `json:"metadata"`
+	ID          uint           `json:"id"`
+	NID         string         `json:"nid"`
+	NNS         string         `json:"nns"`
+	AccessToken string         `json:"accessToken"`
+	Metadata    RecordMetadata `json:"metadata"`
 }
 
 // GenerateRecordOutput method
-func GenerateRecordOutput(record *Record) RecordOutput {
+func GenerateRecordOutput(record *Record, regNNS string, withAccessToken bool) RecordOutput {
 	var metadata RecordMetadata
 	json.Unmarshal([]byte(record.Metadata), &metadata)
 
+	accessToken := "-"
+	if withAccessToken {
+		accessToken = record.AccessToken
+	}
+
 	return RecordOutput{
-		ID:       record.ID,
-		NID:      record.NID,
-		Metadata: metadata,
+		ID:          record.ID,
+		NID:         record.NID,
+		NNS:         fmt.Sprintf("%d%s", record.ID, regNNS),
+		Metadata:    metadata,
+		AccessToken: accessToken,
 	}
 }
